@@ -37,19 +37,31 @@
 }
 
 .mainSection {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
   justify-content: center;
+  background-color: lightblue;
+  text-align: center;
+
 }
 
 .mainBoxes{
   margin-bottom: 20px;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  justify-content: center;
+  background-color: pink;
+  width: 60%;
+  text-align: center;
+  margin: auto;
 }
 
-mainMiddle {
+
+.mainMiddle {
   text-align: center;
+  width: 60%;
+  background-color: pink;
 }
 .center {
   width: 100%;
