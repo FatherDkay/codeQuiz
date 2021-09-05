@@ -4,16 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Countdown Timer</title>
+    <title>Coding Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1 class="welcome">Are you ready?</h1>
-      <button id="start">Start</button>
-      <h2 id="countdown"></h2>
-      <p id="main"></p>
-    </div>
+    <!--Top line containing hight score and timer -->
+    <header class="topLine">
+      <div class = "highScore">
+          <h3>View high scores</h3>
+      </div>
+
+      <div>
+          <h3 id="countdown" class="timer">
+          </h3>
+      </div>
+      </header>
+      <!-- End Top Line-->
+
+      <!--Start main area-->
+    <section class="mainSection">
+      <div id="mainTop" class ="mainBoxes"> 
+
+      </div>
+      
+      <div id="mainMiddle" class ="mainBoxes">
+
+      </div>
+
+      <div id="mainBottom" class ="mainBoxes">
+
+        <div id="btnContainer" class="btnContainer">
+        </div>
+
+      </div>
+
+    </section>
+
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
