@@ -1,7 +1,7 @@
 .topLine {
   display: flex;
   justify-content: space-between;
-  padding: 100px;
+  padding: 10px;
 }
 
 .highScore {
@@ -23,46 +23,72 @@
   color: white;
   background-color: darkblue;
   border: none;
-  padding: 15px 25px;
+  padding: 15px 0px;
   font-size: 20px;
   border-radius: 10px;
+  width: 250px;
+  margin: 4px;
 }
 
-.container {
-  margin: auto;
-  width: 100%;
-  height: 100px;
-  text-align: center;
-  display: flex;
+.submitBtn {
+  color: white;
+  background-color: darkblue;
+  border: none;
+  padding: 5px 0px;
+  font-size: 18px;
+  border-radius: 10px;
+  width: 180px;
+  margin: 4px;
+}
+.submitBtn:hover {
+  background-color: violet !important;
 }
 
 .mainSection {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 3px;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 100%;
   justify-content: center;
-  background-color: lightblue;
   text-align: center;
+}
 
+.mainBottom {
+  width: 50%;
+  color: gray;
+  margin: auto;
+  font-style: italic;
 }
 
 .mainBoxes{
-  margin-bottom: 20px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: pink;
-  width: 60%;
+  margin-bottom: 10px;
+  width: 50%;
   text-align: center;
   margin: auto;
 }
 
+.mainTop{
+  margin-bottom: 5px;
+  font-size: 26px;
+  font-weight: bold;
+  width: 50%;
+  text-align: center;
+  margin: auto;
+}
 
 .mainMiddle {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
   text-align: center;
-  width: 60%;
-  background-color: pink;
+  width: 50%;
+  font-size: 16px;
+  margin: auto;
+  font-weight:normal;
+  align-self: flex-start;
 }
+
 .center {
   width: 100%;
   justify-content: center;
@@ -73,3 +99,27 @@
   width: 100%;
   padding: 5px;
 }
+.highScoreInitials {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 50%;
+  font-size: 16px;
+  margin: auto;
+  font-weight:normal;
+  font-size: 20px;
+  align-self: flex-start;
+}
+
+  .clearBtn {
+    color: white;
+    background-color: darkblue;
+    border: none;
+    padding: 5px 0px;
+    font-size: 18px;
+    border-radius: 10px;
+    width: 180px;
+    margin: 4px;
+  }
+  .clearBtn:hover {
+    background-color: violet !important;

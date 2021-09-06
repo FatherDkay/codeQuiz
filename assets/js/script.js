@@ -1,11 +1,10 @@
 var questions = [
-  {q: "Commonly used data types do not include _____", a: "alerts", answers: ["strings", "booleins", "alerts", "numbers"]},
-  {q: "The condition in an if/then statement is enclused with _____", a: "parentheses", answers: ["quotes", "curly brackets", "parentheses", "square brackets"]},
-  {q: "String values must be enclosed with _____", a: "quotes", answers: ["quotes", "curly brackets", "square brackets", "parenthesis"]},
-  {q: "Array's in javascript can be used to store", a: "all of the above", answers: ["numbers and strings", "other arrays", "booleans", "all of the above"]},
-  {q: "Question 5", a: "Question 5 answer"}
+  {q: "Commonly used data types do not include _____:", a: "alerts", answers: ["strings", "booleans", "alerts", "numbers"]},
+  {q: "The condition in an if / else statement is enclused with _____.", a: "parentheses", answers: ["quotes", "curly brackets", "parentheses", "square brackets"]},
+  {q: "String values must be enclosed with _____:", a: "quotes", answers: ["quotes", "curly brackets", "square brackets", "parenthesis"]},
+  {q: "Array's in javascript can be used to store:", a: "all of the above", answers: ["numbers and strings", "other arrays", "booleans", "all of the above"]},
+  {q: "A very useful tool used development and debuttging for printing content to the debugger is _____:", a: "console.log", answers: ["JavaScript", "for loops", "console.log", "git bash"]}
 ]
-// ELEMENT VARIABLES
 var timer = document.getElementById('countdown');
 var main = document.getElementById("mainTop");
 var mainMid = document.getElementById("mainMiddle");
@@ -13,25 +12,29 @@ var mainBottom = document.getElementById("mainBottom");
 var currentQuestion  = 0;
 var score = 0;
 var answer;
-// END
 var timeLeft = 75;
+var gameRunning = false;
+var timeInterval;
+var input;
 
 // TIMER 75 SECONDS
 function countdown() {
-  var timeInterval = setInterval(function() {
-    if (timeLeft > 0) {
+  timeInterval = setInterval(function() {
+    //check if the game is still in progress
+    if(!gameRunning) {
+      endGame();
+    //check if the timer has time remaining
+    }else if(timeLeft <= 0){
+      endGame();
+    } else {
       timer.textContent = "Time: " + timeLeft;
       timeLeft--;
-    } else {
-      timer.textContent ="";
-      clearInterval(timeInterval);
-      displayMessage();
     }
   }, 1000);
   }
 // END TIMER
 
-// AUTOEXEC
+// START ONLOAD
 function startQuiz(){
   var title = document.createElement("h1");
   title.textContent = "Coding Quiz Challenge";
@@ -51,19 +54,18 @@ function startQuiz(){
   btnContainer.appendChild(startBtn);
   startBtn.onclick = go;
 }
-// END AUTOEXEC
-
+// END ONLOAD
 
 // FUNCTION GO
 function go(){
+  gameRunning = true;
   var el = document.getElementById('btnContainer');
+   el.remove();
   mainMid.textContent = "";
-  el.remove();
   countdown();
   askQuestion();
 }
 // END GO
-
 
 // FUNCTION REMOVE BUTTONS
 function removeButtons(className){
@@ -76,40 +78,70 @@ function removeButtons(className){
 
 // FUNCTION ASK QUESTION
 function askQuestion (){
-  // check for remaining questions and if not end game
-  if (currentQuestion >= questions.length) {
-    //END GAME
+  // check for remaining questions  or out of time
+  if (currentQuestion >= questions.length || timeLeft <= 0) {
+    endGame();
+    return;
   }
-  // check timer <= 0
   removeButtons();
   var theQuestion = questions[currentQuestion];
   main.textContent =theQuestion.q;
+  main.setAttribute('style', 'text-align: left');
+  mainBottom.setAttribute('style', 'text-align: left; font-size: 25px; border-top: solid')
   for (i = 0; i < theQuestion.answers.length; i++){
     createBtn(theQuestion.answers[i],"btn",function(e) {
+      // check answer
       if (e.currentTarget.textContent === theQuestion.a) {
-        mainBottom.textContent ="Correct";
+        mainBottom.textContent ="Correct!";
         score = score + timeLeft;
       } else {
-        mainBottom.textContent = "Wrong shithead";
+        mainBottom.textContent = "Wrong!";
         timeLeft = timeLeft - 10;
       }
       currentQuestion++;
       askQuestion();
     });
   }
-  // check answer correct or wrong
-
-
 }
-
 // END ASK QUESTION
+
+// FUNCTION END GAME
+function endGame () {
+  timer.textContent ="";
+  clearInterval(timeInterval);
+  gameRunning = false;
+  main.textContent ="All Done!"
+  main.setAttribute('style', 'text-align: left');
+  mainMiddle.textContent ="Your final score is " + score;
+  mainMiddle.setAttribute('style', 'text-align: left; font-size: 24px');
+  mainBottom.textContent = "";
+ 
+  //high score process
+  const label = document.createElement("label");
+  label.setAttribute('style', 'text-align: left');
+  label.setAttribute("for", "input");
+  label.innerHTML = "Enter Initials: ";
+  highScoreInitials.appendChild(label);
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("id","initials");
+  highScoreInitials.appendChild(input);
+
+  var submitBtn = document.createElement("button");
+  submitBtn.textContent ="Submit";
+  submitBtn.classList.add("submitBtn");
+  highScoreInitials.appendChild(submitBtn);
+  submitBtn.onclick = saveScore;
+}
+// END END GAME
 
 // FUNCTION CREATE BUTTON
 function createBtn(text, className, callback) {
   var btn = document.createElement("button");
   btn.textContent = text;
   btn.classList.add(className);
-
+  
   if (callback) {
     btn.addEventListener("click", callback);
   }
@@ -117,11 +149,69 @@ function createBtn(text, className, callback) {
 }
 // END FUNCTION CREATE BUTTON
 
+// SAVE SCORE
+function saveScore () {
+  var scores = getSavedHighScores();
+  var newScore = {
+    initials: document.getElementById("initials").value,
+    score: score
+  };
+  //insert score into scores array
+  scores.push(newScore);
+  localStorage.setItem("highScores", JSON.stringify(scores));
+ showHighScores();
+}
+// GET SAVED SCORES
+function getSavedHighScores(){
+   var saved = localStorage.getItem("highScores");
+   if(!saved) {
+     return [];
+   }
+   return JSON.parse (saved);
+}
+
+// SHOW HIGH SCORES
+function showHighScores (){
+main.textContent = "High Scores";
+mainMiddle.textContent = "";
+var el = document.getElementById('highScoreInitials');
+el.remove();
+
+// list high scores from local storage
+var scores = getSavedHighScores();
+// for(i=0; i < scores.length; i++);{
+//   var scoreList = document.createElement("h2");
+//   scoreList = scores;
+//   main.middle.apendChild(scoreList);
 
 
- // var startBtn = document.createElement("button");
-  // startBtn.textContent = "Start Quiz";
-  // startBtn.classList.add("btn");
-  // btnContainer.appendChild(startBtn);
+// create try again button
+var againBtn = document.createElement("button");
+  againBtn.textContent ="Try Again";
+  againBtn.classList.add("submitBtn");
+  highScoreList.appendChild(againBtn);
+  againBtn.onclick = restart;
+
+// create clear high score buttons
+var clearBtn = document.createElement("button");
+  clearBtn.textContent ="Clear High Scores";
+  clearBtn.classList.add("clearBtn");
+  highScoreList.appendChild(clearBtn);
+  clearBtn.onclick = localClear;
+}
+
+function restart(){
+location.reload();
+}
+
+function localClear(){
+  var clearIt = window.confirm("Are you sure you want to clear the high scores?  This can not be undone");
+    if(clearIt){
+      localStorage.clear();
+      restart();
+    }else {
+      restart();
+    }
+  }
 
 startQuiz();
