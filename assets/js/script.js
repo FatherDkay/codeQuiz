@@ -1,9 +1,9 @@
 var questions = [
   {q: "Commonly used data types do not include _____:", a: "alerts", answers: ["strings", "booleans", "alerts", "numbers"]},
-  {q: "The condition in an if / else statement is enclused with _____.", a: "parentheses", answers: ["quotes", "curly brackets", "parentheses", "square brackets"]},
+  {q: "The condition in an if / else statement is enclosed with _____:", a: "parentheses", answers: ["quotes", "curly brackets", "parentheses", "square brackets"]},
   {q: "String values must be enclosed with _____:", a: "quotes", answers: ["quotes", "curly brackets", "square brackets", "parenthesis"]},
   {q: "Array's in javascript can be used to store:", a: "all of the above", answers: ["numbers and strings", "other arrays", "booleans", "all of the above"]},
-  {q: "A very useful tool used development and debuttging for printing content to the debugger is _____:", a: "console.log", answers: ["JavaScript", "for loops", "console.log", "git bash"]}
+  {q: "A very useful tool used in development for debugging and printing content to the debugger is _____:", a: "console.log", answers: ["JavaScript", "for loops", "console.log", "git bash"]}
 ]
 var timer = document.getElementById('countdown');
 var main = document.getElementById("mainTop");
@@ -193,7 +193,7 @@ function getSavedHighScores(){
 
 // SHOW HIGH SCORES
 function showHighScores (){
-main.textContent = "High Scores";
+main.textContent = "Score Board";
 mainMiddle.textContent = "";
 mainBottom.textContent = "";
 var el = document.getElementById('highScoreInitials');
