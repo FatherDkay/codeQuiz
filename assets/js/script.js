@@ -9,6 +9,7 @@ var timer = document.getElementById('countdown');
 var main = document.getElementById("mainTop");
 var mainMid = document.getElementById("mainMiddle");
 var mainBottom = document.getElementById("mainBottom");
+var highScoreList = document.getElementById("highScoreList");
 var currentQuestion  = 0;
 var score = 0;
 var answer;
@@ -16,6 +17,26 @@ var timeLeft = 75;
 var gameRunning = false;
 var timeInterval;
 var input;
+
+document.getElementById("viewHighScore").addEventListener("click", checkStop);
+
+function checkStop () {
+  if(!gameRunning) {
+    showHighScores();
+  }
+  else {
+    pauseTime = timeLeft;
+    var reallyStop = window.confirm("Are you sure you want to end this game and display the scoreboard?");
+    if(reallyStop) {
+      timer.textContent ="";
+      clearInterval(timeInterval);
+      gameRunning = false;
+      showHighScores();
+    }else {
+      timeLeft = pauseTime;
+}
+}
+}
 
 // TIMER 75 SECONDS
 function countdown() {
@@ -38,7 +59,6 @@ function countdown() {
 function startQuiz(){
   var title = document.createElement("h1");
   title.textContent = "Coding Quiz Challenge";
-  //title.setAttribute('style', 'margin:auto; width: 50%; text-align:center; font-size: 40px');
   main = title;
   mainTop.appendChild(main);
 
@@ -133,6 +153,7 @@ function endGame () {
   submitBtn.classList.add("submitBtn");
   highScoreInitials.appendChild(submitBtn);
   submitBtn.onclick = saveScore;
+
 }
 // END END GAME
 
@@ -174,20 +195,24 @@ function getSavedHighScores(){
 function showHighScores (){
 main.textContent = "High Scores";
 mainMiddle.textContent = "";
+mainBottom.textContent = "";
 var el = document.getElementById('highScoreInitials');
 el.remove();
 
 // list high scores from local storage
-var scores = getSavedHighScores();
-// for(i=0; i < scores.length; i++);{
-//   var scoreList = document.createElement("h2");
-//   scoreList = scores;
-//   main.middle.apendChild(scoreList);
-
+var highestScores = getSavedHighScores();
+var i = 0;
+while(i < highestScores.length){
+  var listItem = highestScores[i].initials +" - " + highestScores[i].score;
+  listScore = document.createElement("h2");
+  listScore.textContent = (listItem);
+  highScoreList.appendChild(listScore);
+  i++;
+}
 
 // create try again button
 var againBtn = document.createElement("button");
-  againBtn.textContent ="Try Again";
+  againBtn.textContent ="New Game";
   againBtn.classList.add("submitBtn");
   highScoreList.appendChild(againBtn);
   againBtn.onclick = restart;

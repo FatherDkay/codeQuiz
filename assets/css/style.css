@@ -10,6 +10,10 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.highScore:hover {
+  text-shadow: 2px 2px 5px gray;
+}
+
 .timer {
   font-size: 18px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -123,3 +127,12 @@
   }
   .clearBtn:hover {
     background-color: violet !important;
+  }
+  .highScoreList {
+    text-align: left;
+    font-size: 14px;
+    width: 30%;
+    background-color: lightgray;
+    margin: auto;
+  }
+ 
